@@ -1,6 +1,7 @@
+import streamlit as st
+
 def a7_method():
     st.title("7A Method: Your Inner Shift")
-
     st.markdown("Welcome to your energetic reset. Take a breath and move through each step at your own pace.")
 
     awareness = st.text_input("1. **Awareness** — What are you feeling or noticing right now?")
@@ -15,7 +16,7 @@ def a7_method():
         st.markdown("##  You’ve Completed the 7A Method")
         st.success("You just created a shift in your field. Let this new alignment carry you forward. ")
 
-        st.markdown("### Your Responses:")
+        st.markdown("###  Your Responses:")
         st.write("**Awareness:**", awareness)
         st.write("**Allowing:**", allowing)
         st.write("**Acknowledgement:**", acknowledgement)
@@ -24,4 +25,5 @@ def a7_method():
         st.write("**Activation:**", activation)
         st.write("**Alignment:**", alignment)
 
+# ✅ THIS LINE BELOW is the missing piece!
 a7_method()
