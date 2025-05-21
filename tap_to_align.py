@@ -86,4 +86,4 @@ if st.session_state.step > len(prompts):
     st.markdown("---")
     st.subheader("Would you like to support this experience?")
     st.write("This app is free and always will be. If it brought you peace, clarity, or alignment, you can support its evolution below.")
-    st.markdown("[☕ Buy Me a Coffee](https://www.buymeacoffee.com/YOURNAME)")
+    st.markdown("[☕ Buy Me a Coffee](https://www.buymeacoffee.com/sheilamaebalaga)")
