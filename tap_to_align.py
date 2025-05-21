@@ -50,28 +50,21 @@ st.markdown("""
 """)
 
 st.markdown("---")
+st.subheader("✨ Benefits")
+
+st.markdown("**1. Reset Your Energy in Minutes**  \nFeel off? Overwhelmed? Disconnected? Tap through 8 steps to realign with your truth.")
+st.markdown("**2. Anchor Into Presence**  \nEach prompt invites you into the now—calm, conscious, and grounded.")
+st.markdown("**3. Hold Space for Your Emotions**  \nInstead of escaping what you feel, this app teaches you how to witness it without judgment.")
+st.markdown("**4. Activate Your Inner Wisdom**  \nThe journey ends in clarity, not confusion. These prompts help awaken insights already inside you.")
+st.markdown("**5. Create a Ritual of Return**  \nMake this your daily check-in. A tap becomes your sacred pause—morning, mid-storm, or just before sleep.")
+st.markdown("**6. Accessible. Private. Deeply Yours.**  \nNo advice. No noise. No distractions. Just you, your truth, and a quiet return to alignment.")
+
+st.markdown("---")
+st.markdown("> *The shift you’ve been seeking isn’t outside you. It’s within.*  \n**Tap in. Align. Begin again.**")
+
 if st.button("Begin My 8A Shift"):
     st.session_state.step = 1
 st.stop()
-
-
-    st.markdown("---")
-    st.subheader("✨ Benefits")
-    st.markdown("**1. Reset Your Energy in Minutes**  \nFeel off? Overwhelmed? Disconnected? Tap through 8 steps to realign with your truth.")
-    st.markdown("**2. Anchor Into Presence**  \nEach prompt invites you into the now—calm, conscious, and grounded.")
-    st.markdown("**3. Hold Space for Your Emotions**  \nInstead of escaping what you feel, this app teaches you how to witness it without judgment.")
-    st.markdown("**4. Activate Your Inner Wisdom**  \nThe journey ends in clarity, not confusion. These prompts help awaken insights already inside you.")
-    st.markdown("**5. Create a Ritual of Return**  \nMake this your daily check-in. A tap becomes your sacred pause—morning, mid-storm, or just before sleep.")
-    st.markdown("**6. Accessible. Private. Deeply Yours.**  \nNo advice. No noise. No distractions. Just you, your truth, and a quiet return to alignment.")
-
-    st.markdown("---")
-    st.markdown("> *The shift you’ve been seeking isn’t outside you. It’s within.*  \n**Tap in. Align. Begin again.**")
-
-    st.markdown("---")
-    if st.button("Begin My 8A Shift"):
-        st.session_state.step = 1
-    st.stop()
-
 # Show current step
 keys = list(prompts.keys())
 current_key = keys[st.session_state.step - 1]
