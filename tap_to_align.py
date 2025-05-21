@@ -2,7 +2,26 @@ import streamlit as st
 
 st.set_page_config(page_title="Tap to Align", layout="centered")
 
-# Define the 8A prompts
+# Welcome screen
+if "started" not in st.session_state:
+    st.session_state.started = False
+
+if not st.session_state.started:
+    st.markdown("<h1 style='text-align: center;'>Tap to Align</h1>", unsafe_allow_html=True)
+    
+    st.write("**Tap to Align is a sacred space in your pocket—designed to gently guide you back to yourself.**")
+    st.write("Through 8 intentional prompts, this app offers a moment of pause, presence, and personal power.")
+    st.write("It’s not about fixing. It’s about remembering who you are.")
+    st.markdown("*One tap at a time.*")
+
+    st.markdown("---")
+    if st.button("Begin My 8A Shift"):
+        st.session_state.started = True
+    st.stop()
+
+# 8A Prompt Method
+st.title("Your 8A Shift")
+
 prompts = {
     "Awareness": "What are you feeling or noticing right now?",
     "Allowing": "Can you let that feeling exist without trying to fix it?",
@@ -14,36 +33,31 @@ prompts = {
     "Appreciation": "What can you thank yourself or this moment for?"
 }
 
-# Session setup
-if "step" not in st.session_state:
-    st.session_state.step = 0
-    st.session_state.responses = {}
+for key, prompt in prompts.items():
+    if st.button(key):
+        st.markdown(f"### {prompt}")
+        st.stop()
 
-# Welcome screen
-if st.session_state.step == 0:
-    st.markdown("<h1 style='text-align: center;'>Tap to Align</h1>", unsafe_allow_html=True)
-    st.write("Welcome to your energetic reset. Breathe in. Let’s begin.")
-    if st.button("Begin My 8A Shift"):
-        st.session_state.step = 1
-    st.stop()
+st.markdown("---")
+st.write("You’ve reached the end of your alignment cycle. Breathe in. You’re home.")
 
-# Show current step
-keys = list(prompts.keys())
-current_key = keys[st.session_state.step - 1]
-current_prompt = prompts[current_key]
+# Optional: Mission + Benefits Button
+if st.button("Why Tap to Align?"):
+    st.subheader("🌿 Mission")
+    st.write("Tap to Align is a sacred space in your pocket—designed to gently guide you back to yourself.")
+    st.write("Through 8 intentional prompts, this app offers a moment of pause, presence, and personal power.")
+    st.write("It’s not about fixing. It’s about remembering who you are.")
+    st.markdown("*One tap at a time.*")
 
-st.header(current_key)
-response = st.text_input(current_prompt, key=current_key)
+    st.markdown("---")
+    st.subheader("✨ Benefits of Tap to Align")
 
-if st.button("Next"):
-    if response:
-        st.session_state.responses[current_key] = response
-        st.session_state.step += 1
+    st.markdown("**1. Reset Your Energy in Minutes**  \nFeel off? Overwhelmed? Disconnected? Tap through 8 steps to realign with your truth.")
+    st.markdown("**2. Anchor Into Presence**  \nEach prompt invites you into the now—calm, conscious, and grounded.")
+    st.markdown("**3. Hold Space for Your Emotions**  \nInstead of escaping what you feel, this app teaches you how to witness it without judgment.")
+    st.markdown("**4. Activate Your Inner Wisdom**  \nThe journey ends in clarity, not confusion. These prompts help awaken insights already inside you.")
+    st.markdown("**5. Create a Ritual of Return**  \nMake this your daily check-in. A tap becomes your sacred pause—morning, mid-storm, or just before sleep.")
+    st.markdown("**6. Accessible. Private. Deeply Yours.**  \nNo advice. No noise. No distractions. Just you, your truth, and a quiet return to alignment.")
 
-# Completion screen
-if st.session_state.step > len(prompts):
-    st.markdown("## You’ve Completed Your 8A Shift")
-    st.success("You’ve aligned your energy. Let this new frequency guide your next steps.")
-    st.markdown("### Your Responses:")
-    for key, value in st.session_state.responses.items():
-        st.write(f"**{key}:** {value}")
+    st.markdown("---")
+    st.markdown("> *The shift you’ve been seeking isn’t outside you. It’s within.*  \n**Tap in. Align. Begin again.**")
