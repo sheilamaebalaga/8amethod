@@ -1,5 +1,5 @@
 def a7_method():
-    st.title("🌀 7A Method: Your Inner Shift")
+    st.title("7A Method: Your Inner Shift")
 
     st.markdown("Welcome to your energetic reset. Take a breath and move through each step at your own pace.")
 
@@ -11,11 +11,11 @@ def a7_method():
     activation = st.text_input("6. **Activation** — What truth or insight is waking up within you now?")
     alignment = st.text_input("7. **Alignment** — How do you want to carry this forward from this space?")
 
-    if st.button("✨ Complete My 7A Shift"):
-        st.markdown("## 🔓 You’ve Completed the 7A Method")
-        st.success("You just created a shift in your field. Let this new alignment carry you forward. 🌿")
+    if st.button(" Complete My 7A Shift"):
+        st.markdown("##  You’ve Completed the 7A Method")
+        st.success("You just created a shift in your field. Let this new alignment carry you forward. ")
 
-        st.markdown("### 🌀 Your Responses:")
+        st.markdown("### Your Responses:")
         st.write("**Awareness:**", awareness)
         st.write("**Allowing:**", allowing)
         st.write("**Acknowledgement:**", acknowledgement)
