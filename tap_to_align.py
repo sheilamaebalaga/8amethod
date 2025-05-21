@@ -30,8 +30,6 @@ if st.session_state.step == 0:
 
     st.markdown("---")
     st.subheader("The 8A Method")
-   st.markdown("---")
-st.subheader("The 8A Method")
 
 st.write("""
 The 8A Method is a moment-to-moment energetic shift.  
