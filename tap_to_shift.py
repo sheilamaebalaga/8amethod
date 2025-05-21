@@ -26,9 +26,8 @@ if st.session_state.step == 0:
     st.write("""
     The 8A Method is a moment-to-moment energetic shift.  
     Whether you're navigating something heavy, uncertain, joyful, or overwhelming, this method helps you slow down, tune in, discern, and realign.  
-    It’s not about fixing how you feel. It’s about being fully present with it, so something deeper can emerge—tuning into better outcomes that support your well-being.
+    It’s not about fixing how you feel. It’s about being fully present with it, so something deeper can emerge, tuning into better outcomes that support you
     """)
-
     st.markdown("---")
     st.subheader("The 8 Steps")
 
