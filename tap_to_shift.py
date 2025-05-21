@@ -21,7 +21,7 @@ if "step" not in st.session_state:
 
 # Welcome screen
 if st.session_state.step == 0:
-    st.markdown("<h1 style='text-align: center;'>Tap to Shift</h1>", unsafe_allow_html=True)
+   st.markdown("<h1 style='text-align: center;'>Tap to Shift</h1>", unsafe_allow_html=True)
 
    st.write("""
 The 8A Method is a moment-to-moment energetic shift.  
