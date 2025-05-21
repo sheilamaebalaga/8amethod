@@ -47,3 +47,29 @@ if st.session_state.step > len(prompts):
     st.markdown("### Your Responses:")
     for key, value in st.session_state.responses.items():
         st.write(f"**{key}:** {value}")
+
+# Optional: About Section
+with st.expander("✨ Why Tap to Align? (Mission + Benefits)"):
+    st.markdown("**Tap to Align is a sacred space in your pocket—designed to gently guide you back to yourself.**")
+    st.write("Through 8 intentional prompts, this app offers a moment of pause, presence, and personal power.")
+    st.write("It’s not about fixing. It’s about remembering who you are.")
+    st.markdown("*One tap at a time.*")
+
+    st.markdown("---")
+    st.subheader("The 8A Method")
+
+    for key, value in prompts.items():
+        st.markdown(f"**{key}** — {value}")
+
+    st.markdown("---")
+    st.subheader("Benefits of Tap to Align")
+
+    st.markdown("**1. Reset Your Energy in Minutes**  \nFeel off? Overwhelmed? Disconnected? Tap through 8 steps to realign with your truth.")
+    st.markdown("**2. Anchor Into Presence**  \nEach prompt invites you into the now—calm, conscious, and grounded.")
+    st.markdown("**3. Hold Space for Your Emotions**  \nInstead of escaping what you feel, this app teaches you how to witness it without judgment.")
+    st.markdown("**4. Activate Your Inner Wisdom**  \nThe journey ends in clarity, not confusion. These prompts help awaken insights already inside you.")
+    st.markdown("**5. Create a Ritual of Return**  \nMake this your daily check-in. A tap becomes your sacred pause—morning, mid-storm, or just before sleep.")
+    st.markdown("**6. Accessible. Private. Deeply Yours.**  \nNo advice. No noise. No distractions. Just you, your truth, and a quiet return to alignment.")
+
+    st.markdown("---")
+    st.markdown("> *The shift you’ve been seeking isn’t outside you. It’s within.*  \n**Tap in. Align. Begin again.**")
