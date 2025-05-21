@@ -1,5 +1,3 @@
-# tap_to_align.py
-
 import streamlit as st
 
 st.set_page_config(page_title="Tap to Align", layout="centered")
