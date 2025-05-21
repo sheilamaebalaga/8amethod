@@ -25,22 +25,22 @@ if st.session_state.step == 0:
 
     st.write("""
     The 8A Method is a moment-to-moment energetic shift.  
-    Whether you're navigating something heavy, uncertain, joyful, or overwhelming; this method helps you slow down, tune in, discern and realign.  
-    It’s not about fixing how you feel. It’s about being fully present with it, so something deeper can emerge, tuning in to better outcomes that benefits your well being.
+    Whether you're navigating something heavy, uncertain, joyful, or overwhelming, this method helps you slow down, tune in, discern, and realign.  
+    It’s not about fixing how you feel. It’s about being fully present with it, so something deeper can emerge—tuning into better outcomes that support your well-being.
     """)
 
     st.markdown("---")
     st.subheader("The 8 Steps")
 
     st.markdown("""
-    - **Awareness** – Recognize what situation or moment is stirring something inside you.  
-    - **Acknowledgement** – Gently name the truth beneath the feeling—what it's really about.     
-    - **Allowing** – Give yourself permission to feel it, without resistance or control.   
-    - **Acceptance** – Embrace this part of your experience without shame, shoulds, or stories.  
-    - **Acting** – Feel into whether any action (or non-action) naturally wants to arise.  
-    - **Activation** – Let the insight or shift become real within you, even if it's subtle.  
-    - **Alignment** – Integrate this shift—how do you want to carry yourself forward from here?  
-    - **Appreciation** – Close with gratitude—for your courage, your presence, and this inner moment.
+- **Awareness** – Recognize what situation or moment is stirring something inside you.  
+- **Acknowledgement** – Gently name the truth beneath the feeling—what it's really about.  
+- **Allowing** – Give yourself permission to feel it, without resistance or control.  
+- **Acceptance** – Embrace this part of your experience without shame, shoulds, or stories.  
+- **Acting** – Feel into whether any action (or non-action) naturally wants to arise.  
+- **Activation** – Let the insight or shift become real within you, even if it's subtle.  
+- **Alignment** – Integrate this shift—how do you want to carry yourself forward from here?  
+- **Appreciation** – Close with gratitude—for your courage, your presence, and this inner moment.
     """)
 
     st.markdown("---")
@@ -50,7 +50,7 @@ if st.session_state.step == 0:
     st.markdown("**2. Anchor Into Presence**  \nEach prompt invites you into the now—calm, conscious, and grounded.")
     st.markdown("**3. Hold Space for Your Emotions**  \nInstead of escaping what you feel, this app teaches you how to witness it without judgment.")
     st.markdown("**4. Activate Your Inner Wisdom**  \nThe journey ends in clarity, not confusion. These prompts help awaken insights already inside you.")
-    st.markdown("**5. Create a Ritual of Return**  \nMake this your daily check-in. A tap becomes your sacred pause; morning, mid-storm, or just before sleep.")
+    st.markdown("**5. Create a Ritual of Return**  \nMake this your daily check-in. A tap becomes your sacred pause—morning, mid-storm, or just before sleep.")
     st.markdown("**6. Accessible. Private. Deeply Yours.**  \nNo advice. No noise. No distractions. Just you, your truth, and a quiet return to alignment.")
 
     st.markdown("---")
@@ -74,7 +74,6 @@ if st.session_state.step <= len(keys):
             st.session_state.responses[current_key] = response
             st.session_state.step += 1
 
-# Completion screen
 # Completion screen
 if st.session_state.step > len(prompts):
     st.markdown("## You’ve Completed Your 8A Shift")
