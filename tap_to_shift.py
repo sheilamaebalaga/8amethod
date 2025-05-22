@@ -77,6 +77,12 @@ if st.session_state.step > len(prompts):
     st.markdown("## You’ve Completed Your 8A Shift")
     st.success("You’ve aligned your energy. Let this new frequency guide your next steps.")
     st.markdown("### Your Reflections:")
+    st.markdown("---")
+    st.markdown("**Now breathe in… and breathe out…**")
+    st.markdown("Thank yourself for creating space to pause, connect with your body, calm down, and choose what’s best for you in this exact moment.")
+    st.markdown("**You are a force and beyond amazing.**")
+    st.markdown("You’re just getting started.")
+    st.markdown("**Come back anytime.**")
     for key, value in st.session_state.responses.items():
         st.write(f"**{key}:** {value}")
 
