@@ -65,20 +65,32 @@ if st.session_state.step <= len(keys):
     current_prompt = prompts[current_key]
 
     st.header(current_key)
-    response = st.text_input(current_prompt, key=current_key)
+    response_key = f"response_{current_key}"
+    response = st.text_input(current_prompt, key=response_key)
 
     if st.button("Next"):
-        if response:
-            st.session_state.responses[current_key] = response
-            st.session_state.step += 1
+        st.session_state.responses[current_key] = response
+        st.session_state.step += 1
 
 # Completion screen
 if st.session_state.step > len(prompts):
     st.markdown("## You’ve Completed Your 8A Shift")
     st.success("You’ve aligned your energy. Let this new frequency guide your next steps.")
+
     st.markdown("### Your Reflections:")
     for key, value in st.session_state.responses.items():
         st.write(f"**{key}:** {value}")
+
+    st.markdown("---")
+    st.markdown("""
+### 🌬️ Now breathe in... and breathe out...
+
+Thank yourself for creating space to pause, connect with your body, calm down, and choose what’s best for you in this exact moment.
+
+**You are a force and beyond amazing.  
+You are just getting started.**  
+Come back anytime.
+    """)
 
     st.markdown("---")
     st.subheader("Would you like to support this experience?")
