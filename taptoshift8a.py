@@ -58,7 +58,7 @@ if st.session_state.step == 0:
 
     if st.button("Begin My 8A Shift"):
         st.session_state.step = 1
-        st.experimental_rerun()
+        st.rerun()
 
 elif st.session_state.step <= len(keys):
     current_key = keys[st.session_state.step - 1]
@@ -71,7 +71,7 @@ elif st.session_state.step <= len(keys):
         if response:
             st.session_state.responses[current_key] = response
             st.session_state.step += 1
-            st.experimental_rerun()
+            st.rerun()
 
 # Completion screen
 if st.session_state.step > len(prompts):
