@@ -83,10 +83,9 @@ if st.session_state.step > len(prompts):
 
     st.markdown("---")
     st.markdown("""
-    Now breathe in... and breathe out...  
-    Thank yourself for creating space to pause, connect with your body, calm down,  
-    and choose what’s best for you in this exact moment.  
-    You are a force and beyond amazing. You’re just getting started.  
+    Now breathe in... and breathe out...   
+    You are a force and beyond amazing. 
+    You’re just getting started.  
     Come back anytime.
     """)
 
