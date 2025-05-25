@@ -43,7 +43,7 @@ if st.session_state.step == 0:
     """)
 
     st.markdown("---")
-    st.subheader(" Benefits")
+    st.subheader("✨ Benefits")
     st.markdown("**1. Reset Your Energy in Minutes**  \nFeel off? Overwhelmed? Disconnected? Tap through 8 steps to realign with your truth.")
     st.markdown("**2. Anchor Into Presence**  \nEach prompt invites you into the now—calm, conscious, and grounded.")
     st.markdown("**3. Hold Space for Your Emotions**  \nInstead of escaping what you feel, this app teaches you how to witness it without judgment.")
@@ -58,19 +58,29 @@ if st.session_state.step == 0:
         st.session_state.step = 1
     st.stop()
 
-# Show current step
+# Prompt steps
 keys = list(prompts.keys())
-if st.session_state.step <= len(keys):
+if 1 <= st.session_state.step <= len(keys):
     current_key = keys[st.session_state.step - 1]
     current_prompt = prompts[current_key]
+    response_key = f"response_{current_key}"
+
+    if response_key not in st.session_state:
+        st.session_state[response_key] = ""
 
     st.header(current_key)
-    response_key = f"response_{current_key}"
-    response = st.text_input(current_prompt, key=response_key)
+    st.session_state[response_key] = st.text_input(
+        label=current_prompt,
+        value=st.session_state[response_key],
+        key=response_key
+    )
 
-    if st.button("Next"):
-        st.session_state.responses[current_key] = response
-        st.session_state.step += 1
+    if st.session_state[response_key].strip():
+        if st.button("Next"):
+            st.session_state.responses[current_key] = st.session_state[response_key]
+            st.session_state.step += 1
+    else:
+        st.write("⏳ Please enter your response to continue.")
 
 # Completion screen
 if st.session_state.step > len(prompts):
