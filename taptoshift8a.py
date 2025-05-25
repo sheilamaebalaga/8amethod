@@ -43,7 +43,7 @@ if st.session_state.step == 0:
     """)
 
     st.markdown("---")
-    st.subheader("✨ Benefits")
+    st.subheader(" Benefits")
     st.markdown("**1. Reset Your Energy in Minutes**  \nFeel off? Overwhelmed? Disconnected? Tap through 8 steps to realign with your truth.")
     st.markdown("**2. Anchor Into Presence**  \nEach prompt invites you into the now—calm, conscious, and grounded.")
     st.markdown("**3. Hold Space for Your Emotions**  \nInstead of escaping what you feel, this app teaches you how to witness it without judgment.")
