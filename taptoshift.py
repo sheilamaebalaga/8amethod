@@ -1,92 +1,81 @@
 import streamlit as st
-from io import StringIO
+from io import BytesIO
 
-# --- Custom Theme Styling ---
+# Set page config
+st.set_page_config(page_title="Tap to Shift", layout="centered", initial_sidebar_state="collapsed")
+
+# Define app state
+if "step" not in st.session_state:
+    st.session_state.step = 0
+    st.session_state.responses = {}
+
+# App styling
 st.markdown("""
     <style>
-        .stApp {
-            background-color: #EAE6FA;
-            font-family: 'Helvetica Neue', sans-serif;
+        body {
+            background-color: #E6E1F4;
         }
-        h1, h2, h3, h4, h5, h6, p, label, div, span {
-            color: #3C2C72;
-        }
-        .stTextInput>div>div>input, textarea {
-            background-color: #F4F1FC;
-            color: #3C2C72;
-            border: none;
-            border-radius: 10px;
-            padding: 10px;
-        }
-        .stButton>button, .stDownloadButton>button {
-            background-color: #5A54C4;
-            color: #ffffff;
-            border: none;
-            border-radius: 10px;
+        .title {
+            font-size: 2.5em;
             font-weight: bold;
-            padding: 10px 20px;
-            margin-top: 10px;
+            text-align: center;
+            color: #4B3F72;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            text-align: center;
+            color: #4B3F72;
+            margin-bottom: 30px;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# --- Session State Setup ---
-if 'step' not in st.session_state:
-    st.session_state.step = 0
-if 'responses' not in st.session_state:
-    st.session_state.responses = {}
-
-# --- 8A Method Steps ---
-steps = [
-    ("Tap to Shift", "A gentle reset is one tap away."),
-    ("Awareness", "What are you currently feeling or noticing inside you?"),
-    ("Acknowledgement", "Can you gently acknowledge what this is really about?"),
-    ("Allowing", "Let yourself feel it without trying to change it. What arises?"),
-    ("Acceptance", "Can you embrace this part of you with compassion?"),
-    ("Acting", "What inspired action (or non-action) naturally wants to arise?"),
-    ("Activation", "Let the insight or energy shift happen inside. What shifted?"),
-    ("Alignment", "What insight feels true and aligned for you moving forward?"),
-    ("Appreciation", "Take a moment to feel gratitude. What are you thankful for?"),
-    ("Completed", "You've completed your 8A Shift.")
+# Shift prompts
+prompts = [
+    ("Awareness", "What are you currently feeling or noticing?"),
+    ("Acknowledgement", "What truth are you ready to face?"),
+    ("Allowing", "Can you allow this feeling to be here for a moment?"),
+    ("Acceptance", "Can you embrace this experience without judgment?"),
+    ("Acting", "What gentle action or inaction feels right now?"),
+    ("Activation", "What insight is becoming real inside you?"),
+    ("Alignment", "What truth will carry you forward?"),
+    ("Appreciation", "What can you thank yourself for in this moment?")
 ]
 
-# --- Main Logic ---
+# Step flow
 if st.session_state.step == 0:
-    st.markdown(f"<h1>{steps[0][0]}</h1>", unsafe_allow_html=True)
-    st.markdown(f"<p>{steps[0][1]}</p>", unsafe_allow_html=True)
+    st.markdown('<div class="title">Tap to Shift</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">A gentle reset is one tap away.</div>', unsafe_allow_html=True)
     if st.button("Tap to Begin"):
+        st.session_state.step = 1
+
+elif 1 <= st.session_state.step <= len(prompts):
+    label, question = prompts[st.session_state.step - 1]
+    st.markdown(f"### {label}")
+    response = st.text_area(question, key=label)
+    if st.button("Next"):
+        st.session_state.responses[label] = response
         st.session_state.step += 1
-else:
-    if st.session_state.step < len(steps) - 1:
-        step_title, step_prompt = steps[st.session_state.step]
-        st.markdown(f"<h2>{step_title}</h2>", unsafe_allow_html=True)
-        user_input = st.text_area(step_prompt)
-        if st.button("Next"):
-            st.session_state.responses[step_title] = user_input
-            st.session_state.step += 1
-    else:
-        st.success("You've aligned your energy. Let this new frequency guide your next steps.")
-        st.markdown("<h3>Your Reflections:</h3>", unsafe_allow_html=True)
-        for key, value in st.session_state.responses.items():
-            st.markdown(f"**{key}:** {value}")
 
-        # Download Button
-        reflections = "\n".join([f"{k}: {v}" for k, v in st.session_state.responses.items()])
-        file_buffer = StringIO(reflections)
-        st.download_button("Download My Shift", file_buffer, file_name="my_8a_shift.txt")
+elif st.session_state.step == len(prompts) + 1:
+    st.success("You've Completed Your 8A Shift")
+    st.markdown("Let this new frequency guide your next steps.")
+    st.markdown("### Your Reflections:")
 
-        # Closing Message
-        st.markdown("""
-        <h4>🧘‍♀️ Now breathe in… and breathe out.</h4>
-        <p>You are a force and beyond amazing.<br>
-        You’re just getting started.<br>
-        Come back anytime.</p>
-        <hr>
-        <h4>Would you like to support this experience?</h4>
-        <p>This app is free and always will be. If it brought you peace, clarity, or alignment, you can support its evolution below.</p>
-        <a href="https://www.buymeacoffee.com/yourname" target="_blank">☕ Buy Me a Coffee</a>
-        """, unsafe_allow_html=True)
+    reflection_text = ""
+    for label, _ in prompts:
+        user_input = st.session_state.responses.get(label, "")
+        st.markdown(f"**{label}:** {user_input}")
+        reflection_text += f"{label}: {user_input}\n"
 
-        if st.button("Reset App"):
-            st.session_state.step = 0
-            st.session_state.responses = {}
+    file_buffer = BytesIO(reflection_text.encode('utf-8'))
+    st.download_button("Download My Shift", file_buffer, file_name="my_8a_shift.txt", mime="text/plain")
+
+    st.divider()
+    st.markdown("### 😬 Now breathe in... and breathe out.")
+    st.markdown("You are a force and beyond amazing. You're just getting started. Come back anytime.")
+
+    st.divider()
+    st.markdown("### Would you like to support this experience?")
+    st.markdown("This app is free and always will be. If it brought you peace, clarity, or alignment, you can support its evolution below.")
+    st.markdown("[☕ Buy Me a Coffee](https://www.buymeacoffee.com/sheilamaebalaga)")
