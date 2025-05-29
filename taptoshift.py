@@ -72,7 +72,7 @@ elif 1 <= step <= 8:
 
 # PAGE 9: Completion Summary + PDF Download
 elif step == 9:
-    st.markdown("## 🌬️ Let this new frequency guide your next steps.")
+    st.markdown("##  Let this new frequency guide your next steps.")
     st.markdown("### Your Reflections:")
     summary = ""
     for label, _ in questions:
