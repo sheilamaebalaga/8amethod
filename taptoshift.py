@@ -57,7 +57,7 @@ step = st.session_state.step
 # Page 0: Welcome
 if step == 0:
     st.markdown("## Tap to Shift")
-    st.markdown("*8A Method*")  # Add this line under the main heading
+    st.markdown("<div style='text-align:center; font-style:italic; font-size:16px; color:#4F4F4F;'>8A Method</div>", unsafe_allow_html=True)
     st.markdown("A gentle reset is one tap away.")
     if st.button("Tap to Begin"):
         st.session_state.step = 1
