@@ -1,111 +1,101 @@
 import streamlit as st
+from fpdf import FPDF
 from io import BytesIO
 
-# Set page config with indigo theme
-st.set_page_config(
-    page_title="Tap to Shift",
-    page_icon="🔮",
-    layout="centered",
-    initial_sidebar_state="collapsed"
-)
+# Set page config with your preferred theme color
+st.set_page_config(page_title="Tap to Shift", page_icon="🔄", layout="centered")
 
-# Custom Indigo background color
-page_bg = """
-<style>
-body {
-    background-color: #5A54C4;
-    color: white;
-}
-h1, h2, h3, p, button, label, input, textarea {
-    color: white !important;
-}
-.stButton > button {
-    background-color: #7F76D9;
-    color: white;
-    border-radius: 8px;
-    padding: 0.5em 2em;
-    font-size: 18px;
-}
-</style>
-"""
-st.markdown(page_bg, unsafe_allow_html=True)
+# Apply custom CSS for background and button styling
+st.markdown("""
+    <style>
+        html, body, [class*="css"]  {
+            background-color: #f3f0ff;
+            color: #2e1065;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+        .stButton button {
+            background-color: #8e80f9;
+            color: white;
+            border-radius: 8px;
+            padding: 0.5em 1.5em;
+            font-size: 18px;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-# Session setup
+# Store answers in session
 if "step" not in st.session_state:
     st.session_state.step = 0
-if "answers" not in st.session_state:
-    st.session_state.answers = {}
+    st.session_state.answers = []
 
-# 8A questions
 questions = [
-    ("Awareness", "What are you currently feeling or facing?"),
-    ("Acknowledgement", "Can you honor what’s real for you right now?"),
-    ("Allowing", "Can you allow yourself to feel this without resistance?"),
-    ("Acceptance", "What part of this can you embrace without judgment?"),
-    ("Acting", "Is there an inspired action (or inaction) you feel?"),
-    ("Activation", "What new insight is surfacing for you?"),
-    ("Alignment", "How can you carry this forward from here?"),
-    ("Appreciation", "What are you grateful for in this exact moment?")
+    "Awareness — What is stirring something inside you?",
+    "Acknowledgement — What's the truth underneath the feeling?",
+    "Allowing — Can you give yourself permission to feel it fully?",
+    "Acceptance — What part of your experience can you embrace?",
+    "Acting — Is there an action (or non-action) that wants to arise?",
+    "Activation — What insight just became real within you?",
+    "Alignment — How do you want to carry yourself forward?",
+    "Appreciation — What can you thank yourself for in this moment?"
 ]
 
-# Navigation logic
-step = st.session_state.step
-
-# PAGE 0: Intro
-if step == 0:
-    st.markdown("## Tap to Shift")
-    st.markdown("A gentle reset is one tap away.")
+if st.session_state.step == 0:
+    st.markdown("""
+        ## Tap to Shift
+        A gentle reset is one tap away.
+    """)
     if st.button("Tap to Begin"):
         st.session_state.step += 1
-        st.rerun()
 
-# PAGES 1–8: Each 8A Step
-elif 1 <= step <= 8:
-    label, prompt = questions[step - 1]
-    st.markdown(f"### {label}")
-    st.markdown(f"**{prompt}**")
-    response = st.text_area("Your Reflection", key=f"response_{step}")
+elif 1 <= st.session_state.step <= len(questions):
+    st.markdown(f"### {questions[st.session_state.step - 1]}")
+    answer = st.text_area("Tap to type your reflection")
     if st.button("Next"):
-        st.session_state.answers[label] = response
+        st.session_state.answers.append(answer)
         st.session_state.step += 1
-        st.rerun()
 
-# PAGE 9: Completion Summary + PDF Download
-elif step == 9:
-    st.markdown("##  Let this new frequency guide your next steps.")
-    st.markdown("### Your Reflections:")
-    summary = ""
-    for label, _ in questions:
-        answer = st.session_state.answers.get(label, "")
-        st.markdown(f"**{label}:** {answer}")
-        summary += f"{label}: {answer}\n\n"
+elif st.session_state.step == len(questions) + 1:
+    st.success("You've completed your 8A Shift")
+    st.markdown("""
+        ### 🌬️ Let this new frequency guide your next steps.
+    """)
+    st.markdown("#### Your Reflections:")
+    for q, a in zip(questions, st.session_state.answers):
+        st.markdown(f"**{q.split(' — ')[0]}:** {a}")
 
-    # Create downloadable text file
+    # PDF Creation
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt="My 8A Shift Reflections", ln=True, align="C")
+    pdf.ln()
+    for q, a in zip(questions, st.session_state.answers):
+        pdf.multi_cell(0, 10, f"{q.split(' — ')[0]}: {a}")
+        pdf.ln()
     buffer = BytesIO()
-    buffer.write(summary.encode())
+    pdf.output(buffer)
     buffer.seek(0)
-    st.download_button("Download My Shift", buffer, file_name="my_8a_shift.txt", mime="text/plain")
+    st.download_button("Download My Shift", buffer, file_name="my_8a_shift.pdf")
 
     if st.button("Continue"):
         st.session_state.step += 1
-        st.rerun()
 
-# PAGE 10: Affirmation page
-elif step == 10:
-    st.markdown("## 🌬️ Now breathe in… and breathe out.")
-    st.markdown("You are a force and beyond amazing.")
-    st.markdown("You’re just getting started.")
-    st.markdown("Come back anytime.")
+elif st.session_state.step == len(questions) + 2:
+    st.markdown("""
+        ## 🌬️ Now breathe in... and breathe out.
+        You are a force and beyond amazing.  
+        You're just getting started.  
+        Come back anytime.
+    """)
     if st.button("Next"):
         st.session_state.step += 1
-        st.rerun()
 
-# PAGE 11: Support page
-elif step == 11:
-    st.markdown("## Would you like to support this experience?")
-    st.markdown(
-        "This app is free and always will be.\n\n"
-        "If it brought you peace, clarity, or alignment, you can support its evolution below."
-    )
-    st.markdown("[☕ Buy Me a Coffee](https://www.buymeacoffee.com/sheilamaebalaga)")
-    st.markdown("🙏 Thank you for your support!")
+elif st.session_state.step == len(questions) + 3:
+    st.markdown("""
+        ## Would you like to support this experience?
+        This app is free and always will be. If it brought you peace, clarity, or alignment, you can support its evolution below.  
+        ☕ [Buy Me a Coffee](https://www.buymeacoffee.com/)  
+    """)
+    if st.button("Start Again"):
+        st.session_state.step = 0
+        st.session_state.answers = []
