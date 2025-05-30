@@ -98,7 +98,7 @@ elif step == 9:
 
 # Page 10: Closing
 elif step == 10:
-    st.markdown("## 🌬️ Now breathe in… and breathe out.")
+    st.markdown("## 🌬️Now breathe in... and breathe out...")
     st.markdown("You are a force and beyond amazing.")
     st.markdown("You’re just getting started.")
     st.markdown("Come back anytime.")
