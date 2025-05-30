@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom background and button style (mushroom tone + brown button)
+# Custom styling: mushroom background and #9E8A7C buttons
 custom_css = """
 <style>
 body {
@@ -20,7 +20,7 @@ h1, h2, h3, p, label, textarea {
     color: #3B2F2F !important;
 }
 .stButton > button {
-    background-color: #8B5E3C;
+    background-color: #9E8A7C;
     color: white;
     border-radius: 10px;
     padding: 0.5em 2em;
@@ -34,13 +34,13 @@ footer {
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# Persistent session state
+# Session state initialization
 if "step" not in st.session_state:
     st.session_state.step = 0
 if "answers" not in st.session_state:
     st.session_state.answers = {}
 
-# 8A Shift Method Prompts
+# 8A shift prompts
 questions = [
     ("Awareness", "What are you currently feeling or facing?"),
     ("Acknowledgement", "Can you honor what’s real for you right now?"),
@@ -54,7 +54,7 @@ questions = [
 
 step = st.session_state.step
 
-# Page 0: Welcome screen
+# Page 0: Welcome
 if step == 0:
     st.markdown("## Tap to Shift")
     st.markdown("A gentle reset is one tap away.")
@@ -62,7 +62,7 @@ if step == 0:
         st.session_state.step = 1
         st.rerun()
 
-# Pages 1–8: Each prompt
+# Pages 1–8: Questions
 elif 1 <= step <= 8:
     label, prompt = questions[step - 1]
     st.markdown(f"### {label}")
@@ -73,7 +73,7 @@ elif 1 <= step <= 8:
         st.session_state.step += 1
         st.rerun()
 
-# Page 9: Completion summary
+# Page 9: Summary
 elif step == 9:
     st.markdown("## Let this new frequency guide your next steps.")
     st.markdown("### Your Reflections:")
@@ -92,7 +92,7 @@ elif step == 9:
         st.session_state.step += 1
         st.rerun()
 
-# Page 10: Breathe affirmation
+# Page 10: Breath message
 elif step == 10:
     st.markdown("## 🌬️ Now breathe in… and breathe out.")
     st.markdown("You are a force and beyond amazing.")
