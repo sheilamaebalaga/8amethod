@@ -26,6 +26,13 @@ button[kind="primary"] {
 h1, h2, h3, label, textarea, p {
     color: #2D2D2D !important;
 }
+.footer {
+    margin-top: 50px;
+    font-size: 14px;
+    text-align: center;
+    color: #2D2D2D;
+    font-style: italic;
+}
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
@@ -53,7 +60,7 @@ step = st.session_state.step
 # Page 0: Welcome
 if step == 0:
     st.markdown("## Tap to Shift")
-    st.markdown("### A gentle reset is one tap away.")
+    st.markdown("<p style='font-size:16px;'>A gentle reset is one tap away.</p>", unsafe_allow_html=True)
     if st.button("Tap to Begin"):
         st.session_state.step = 1
         st.rerun()
@@ -68,6 +75,7 @@ elif 1 <= step <= 8:
         st.session_state.answers[label] = response
         st.session_state.step += 1
         st.rerun()
+    st.markdown('<div class="footer">Built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
 
 # Page 9: Summary + Download
 elif step == 9:
@@ -87,16 +95,18 @@ elif step == 9:
     if st.button("Continue"):
         st.session_state.step += 1
         st.rerun()
+    st.markdown('<div class="footer">Built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
 
 # Page 10: Closing
 elif step == 10:
-    st.markdown("## 🌬️Now breathe in... and breathe out...")
+    st.markdown("## 🌬️ Now breathe in… and breathe out.")
     st.markdown("You are a force and beyond amazing.")
     st.markdown("You’re just getting started.")
     st.markdown("Come back anytime.")
     if st.button("Next"):
         st.session_state.step += 1
         st.rerun()
+    st.markdown('<div class="footer">Built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
 
 # Page 11: Support
 elif step == 11:
@@ -111,3 +121,4 @@ elif step == 11:
         st.session_state.step = 0
         st.session_state.answers = {}
         st.rerun()
+    st.markdown('<div class="footer">Built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
