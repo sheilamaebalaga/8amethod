@@ -1,54 +1,45 @@
 import streamlit as st
 from io import BytesIO
 
-# App config
+# PAGE SETUP
 st.set_page_config(
     page_title="Tap to Shift",
-    page_icon="🌀",
+    page_icon="🔮",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
 
-# Inject mushroom theme with brown button
+# CUSTOM THEME: Mushroom background, soft brown button
 custom_css = """
 <style>
 body {
     background-color: #C4B6AB !important;
-    color: #2D2D2D !important;
+    color: #2D1F17 !important;
 }
-h1, h2, h3, p, label, textarea {
-    color: #2D2D2D !important;
-}
-.stButton > button {
+button[kind="primary"] {
     background-color: #9E8A7C !important;
     color: white !important;
-    border-radius: 8px !important;
-    padding: 0.6em 2.5em;
+    border-radius: 8px;
+    padding: 0.5em 2em;
     font-size: 18px;
-    border: none;
 }
-.stDownloadButton > button {
-    background-color: #9E8A7C !important;
-    color: white !important;
+h1, h2, h3, label, textarea, p {
+    color: #2D1F17 !important;
 }
-footer {visibility: hidden;}
-.footer-note {
-    text-align: center;
-    font-size: 13px;
-    margin-top: 4em;
-    color: #2D2D2D;
+footer {
+    visibility: hidden;
 }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# Session state
+# SESSION STATE
 if "step" not in st.session_state:
     st.session_state.step = 0
 if "answers" not in st.session_state:
     st.session_state.answers = {}
 
-# 8A Prompts
+# QUESTIONS
 questions = [
     ("Awareness", "What are you currently feeling or facing?"),
     ("Acknowledgement", "Can you honor what’s real for you right now?"),
@@ -60,19 +51,20 @@ questions = [
     ("Appreciation", "What are you grateful for in this exact moment?")
 ]
 
+# CURRENT STEP
 step = st.session_state.step
 
-# Page 0: Welcome
+# PAGE 0: Welcome
 if step == 0:
-    st.image("welcome.png", use_column_width=True)
-    st.markdown("## Tap to Shift")
-    st.markdown('<p style="margin-top: -12px; font-size: 17px;">A gentle reset is one tap away.</p>', unsafe_allow_html=True)
+    st.image("ChatGPT Image May 30, 2025 at 02_34_22 AM.png", use_container_width=True)
+    st.markdown("<h1 style='margin-bottom: 0.2em;'>Tap to Shift</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 20px;'>A gentle reset is one tap away.</p>", unsafe_allow_html=True)
     if st.button("Tap to Begin"):
         st.session_state.step = 1
         st.rerun()
 
-# Pages 1–8: Reflection Questions
-elif 1 <= step <= 8:
+# PAGES 1–8: Questions
+elif 1 <= step <= len(questions):
     label, prompt = questions[step - 1]
     st.markdown(f"### {label}")
     st.markdown(f"**{prompt}**")
@@ -82,9 +74,10 @@ elif 1 <= step <= 8:
         st.session_state.step += 1
         st.rerun()
 
-# Page 9: Summary
-elif step == 9:
+# PAGE 9: Summary + Download
+elif step == len(questions) + 1:
     st.markdown("## Let this new frequency guide your next steps.")
+    st.markdown("### Your Reflections:")
     summary = ""
     for label, _ in questions:
         answer = st.session_state.answers.get(label, "")
@@ -97,30 +90,25 @@ elif step == 9:
     st.download_button("Download My Shift", buffer, file_name="my_8a_shift.txt", mime="text/plain")
 
     if st.button("Continue"):
-        st.session_state.step = 10
+        st.session_state.step += 1
         st.rerun()
 
-# Page 10: Affirmation
-elif step == 10:
+# PAGE 10: Closing Affirmation
+elif step == len(questions) + 2:
     st.markdown("## 🌬️ Now breathe in… and breathe out.")
     st.markdown("You are a force and beyond amazing.")
     st.markdown("You’re just getting started.")
     st.markdown("Come back anytime.")
     if st.button("Next"):
-        st.session_state.step = 11
+        st.session_state.step += 1
         st.rerun()
 
-# Page 11: Support
-elif step == 11:
+# PAGE 11: Support
+elif step == len(questions) + 3:
     st.markdown("## Would you like to support this experience?")
-    st.markdown("This app is free and always will be. If it brought you peace, clarity, or alignment, you can support its evolution below.")
-    st.markdown("[☕ Buy Me a Coffee](https://www.buymeacoffee.com/sheilamaebalaga)")
-    st.markdown("🙏 Thank you for your support!")
+    st.markdown("This app is free and always will be.\n\nIf it brought you peace, clarity, or alignment, you can support its evolution below.")
+    st.markdown("[\u2615 Buy Me a Coffee](https://www.buymeacoffee.com/sheilamaebalaga)")
+    st.markdown("\ud83d\ude4f Thank you for your support!")
     if st.button("Start Again"):
         st.session_state.step = 0
         st.session_state.answers = {}
-        st.rerun()
-        
-# Footer (all pages except welcome)
-if step > 0:
-    st.markdown('<div class="footer-note">Built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
