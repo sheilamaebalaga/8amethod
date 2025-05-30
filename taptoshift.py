@@ -121,4 +121,4 @@ elif step == 11:
         st.session_state.step = 0
         st.session_state.answers = {}
         st.rerun()
-    st.markdown('<div class="footer">Built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">8A Method is built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
