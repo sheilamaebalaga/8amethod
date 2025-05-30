@@ -4,27 +4,26 @@ from io import BytesIO
 # PAGE SETUP
 st.set_page_config(
     page_title="Tap to Shift",
-    page_icon="🔮",
+    page_icon="🧠",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
 
-# Custom THEME: Mushroom background, dark brown text, indigo buttons
+# CUSTOM THEME: Mushroom background, brown buttons, enforced light mode
 custom_css = """
 <style>
 body {
-    background-color: #C8BAB4 !important;
+    background-color: #C8B9AB !important;  /* Mushroom tone */
     color: #2D2D2D !important;
 }
-
 button[kind="primary"] {
-    background-color: #77609D !important;
+    background-color: #7A5C43 !important;  /* Brown */
     color: white !important;
     border-radius: 8px;
     padding: 0.5em 2em;
     font-size: 18px;
+    border: none;
 }
-
 h1, h2, h3, p, label, textarea {
     color: #2D2D2D !important;
 }
@@ -32,13 +31,13 @@ h1, h2, h3, p, label, textarea {
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# SESSION STATE
+# SESSION
 if "step" not in st.session_state:
     st.session_state.step = 0
 if "answers" not in st.session_state:
     st.session_state.answers = {}
 
-# QUESTIONS
+# 8A Prompts
 questions = [
     ("Awareness", "What are you currently feeling or facing?"),
     ("Acknowledgement", "Can you honor what’s real for you right now?"),
@@ -52,15 +51,15 @@ questions = [
 
 step = st.session_state.step
 
-# PAGE 0 – INTRO
+# PAGE 0 — Start
 if step == 0:
     st.markdown("## Tap to Shift")
     st.markdown("A gentle reset is one tap away.")
     if st.button("Tap to Begin"):
-        st.session_state.step = 1
+        st.session_state.step += 1
         st.rerun()
 
-# PAGES 1–8 – QUESTION FLOW
+# PAGES 1–8 — Prompts
 elif 1 <= step <= 8:
     label, prompt = questions[step - 1]
     st.markdown(f"### {label}")
@@ -71,7 +70,7 @@ elif 1 <= step <= 8:
         st.session_state.step += 1
         st.rerun()
 
-# PAGE 9 – SUMMARY & DOWNLOAD
+# PAGE 9 — Summary + TXT Download
 elif step == 9:
     st.markdown("## Let this new frequency guide your next steps.")
     st.markdown("### Your Reflections:")
@@ -90,21 +89,23 @@ elif step == 9:
         st.session_state.step += 1
         st.rerun()
 
-# PAGE 10 – BREATHE OUT
+# PAGE 10 — Breathe
 elif step == 10:
     st.markdown("## 🌬️ Now breathe in… and breathe out.")
     st.markdown("You are a force and beyond amazing.")
-    st.markdown("You’re just getting started. Come back anytime.")
+    st.markdown("You’re just getting started.")
+    st.markdown("Come back anytime.")
     if st.button("Next"):
         st.session_state.step += 1
         st.rerun()
 
-# PAGE 11 – SUPPORT
+# PAGE 11 — Support
 elif step == 11:
     st.markdown("## Would you like to support this experience?")
-    st.markdown("This app is free and always will be.\n\nIf it brought you peace, clarity, or alignment, you can support its evolution below.")
+    st.markdown("This app is free and always will be. If it brought you peace, clarity, or alignment, you can support its evolution below.")
     st.markdown("[☕ Buy Me a Coffee](https://www.buymeacoffee.com/sheilamaebalaga)")
     st.markdown("🙏 Thank you for your support!")
     if st.button("Start Again"):
         st.session_state.step = 0
         st.session_state.answers = {}
+        st.rerun()
