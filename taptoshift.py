@@ -50,7 +50,7 @@ elif 1 <= step <= len(questions):
 
 # PAGE 9: Summary and Download
 elif step == len(questions) + 1:
-    st.markdown("## 🌬️ Let this new frequency guide your next steps.")
+    st.markdown("##  Let this new frequency guide your next steps.")
     st.markdown("### Your Reflections:")
     summary = ""
     for label, _ in questions:
@@ -70,7 +70,7 @@ elif step == len(questions) + 1:
 
 # PAGE 10: Breath & Encouragement
 elif step == len(questions) + 2:
-    st.markdown("## 🌬️ Now breathe in… and breathe out.")
+    st.markdown("## 🌬️ Now breathe in... and breathe out...")
     st.markdown("You are a force and beyond amazing.")
     st.markdown("You’re just getting started.")
     st.markdown("Come back anytime.")
