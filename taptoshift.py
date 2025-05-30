@@ -84,7 +84,7 @@ step = st.session_state.step
 if step == 0:
     st.markdown("""
         # Tap to Shift
-        _Designed to bring you back to center in just one tap._
+        _A gentle reset is one tap away._
     """)
     if st.button("Tap to Begin"):
         st.session_state.step += 1
@@ -103,7 +103,7 @@ elif 1 <= step <= 8:
 
 # Page 9: Summary + download
 elif step == 9:
-    st.markdown("## 🌬️ Let this new frequency guide your next steps.")
+    st.markdown("##  Let this new frequency guide your next steps.")
     st.markdown("---")
     summary = ""
     for label, _ in questions:
@@ -123,8 +123,9 @@ elif step == 9:
 # Page 10: Affirmation
 elif step == 10:
     st.markdown("""
-        ## 🌬️ Now breathe in... and breathe out.
-        You are a force and beyond amazing. You're just getting started. 
+        ## 🌬️ Now breathe in... and breathe out...
+        You are a force and beyond amazing. 
+        You're just getting started. 
         Come back anytime.
     """)
     if st.button("Next"):
