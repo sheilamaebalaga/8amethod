@@ -1,43 +1,42 @@
 import streamlit as st
 from io import BytesIO
 
-# Set page config
+# Page setup
 st.set_page_config(
     page_title="Tap to Shift",
-    page_icon="🔮",
+    page_icon="✨",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
 
-# Custom theme styling
+# Custom styling
 custom_css = """
 <style>
 body {
-    background-color: #C4B6AB !important;
-    color: #2D2D2D !important;
+    background-color: #C4B6AB;
+    color: #2D2D2D;
 }
 button[kind="primary"] {
     background-color: #9E8A7C !important;
     color: white !important;
-    border-radius: 12px;
-    padding: 0.5em 2em;
+    border-radius: 10px;
+    padding: 0.6em 2em;
     font-size: 18px;
-    border: none;
 }
-h1, h2, h3, p, label, textarea {
+h1, h2, h3, label, textarea, p {
     color: #2D2D2D !important;
 }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# Session setup
+# Initialize session state
 if "step" not in st.session_state:
     st.session_state.step = 0
 if "answers" not in st.session_state:
     st.session_state.answers = {}
 
-# 8A questions
+# 8A prompts
 questions = [
     ("Awareness", "What are you currently feeling or facing?"),
     ("Acknowledgement", "Can you honor what’s real for you right now?"),
@@ -51,7 +50,7 @@ questions = [
 
 step = st.session_state.step
 
-# Page 0 – Welcome
+# Page 0: Welcome
 if step == 0:
     st.markdown("## Tap to Shift")
     st.markdown("### A gentle reset is one tap away.")
@@ -59,10 +58,10 @@ if step == 0:
         st.session_state.step = 1
         st.rerun()
 
-# Pages 1–8 – Each reflection step
+# Pages 1-8: Prompt reflections
 elif 1 <= step <= 8:
     label, prompt = questions[step - 1]
-    st.markdown(f"### {label}")
+    st.markdown(f"## {label}")
     st.markdown(f"**{prompt}**")
     response = st.text_area("Your Reflection", key=f"response_{step}")
     if st.button("Next"):
@@ -70,7 +69,7 @@ elif 1 <= step <= 8:
         st.session_state.step += 1
         st.rerun()
 
-# Page 9 – Summary + Download
+# Page 9: Summary + Download
 elif step == 9:
     st.markdown("## Let this new frequency guide your next steps.")
     st.markdown("### Your Reflections:")
@@ -80,7 +79,6 @@ elif step == 9:
         st.markdown(f"**{label}:** {answer}")
         summary += f"{label}: {answer}\n\n"
 
-    # Create downloadable .txt file
     buffer = BytesIO()
     buffer.write(summary.encode())
     buffer.seek(0)
@@ -90,7 +88,7 @@ elif step == 9:
         st.session_state.step += 1
         st.rerun()
 
-# Page 10 – Affirmation
+# Page 10: Closing
 elif step == 10:
     st.markdown("## 🌬️ Now breathe in… and breathe out.")
     st.markdown("You are a force and beyond amazing.")
@@ -100,7 +98,7 @@ elif step == 10:
         st.session_state.step += 1
         st.rerun()
 
-# Page 11 – Support
+# Page 11: Support
 elif step == 11:
     st.markdown("## Would you like to support this experience?")
     st.markdown(
