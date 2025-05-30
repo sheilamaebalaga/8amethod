@@ -1,56 +1,46 @@
 import streamlit as st
 from io import BytesIO
 
-# PAGE SETUP
+# Set page configuration
 st.set_page_config(
     page_title="Tap to Shift",
-    page_icon="🧘",
+    page_icon="🌬️",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
 
-# Custom THEME: Mushroom background, brown buttons, light-mode override
+# Custom background and button style (mushroom tone + brown button)
 custom_css = """
 <style>
 body {
-    background-color: #C4B9A4 !important;
-    color: #2D2D2D !important;
+    background-color: #EDE6DD;
+    color: #3B2F2F;
 }
-button[kind="primary"] {
-    background-color: #7B5E57 !important;
-    color: white !important;
-    border-radius: 8px;
+h1, h2, h3, p, label, textarea {
+    color: #3B2F2F !important;
+}
+.stButton > button {
+    background-color: #8B5E3C;
+    color: white;
+    border-radius: 10px;
     padding: 0.5em 2em;
     font-size: 18px;
     border: none;
 }
-h1, h2, h3, p, label, textarea {
-    color: #2D2D2D !important;
-}
 footer {
     visibility: hidden;
-}
-# Custom footer
-footer::after {
-    content: "Built for your nervous system. With care, always.";
-    visibility: visible;
-    display: block;
-    text-align: center;
-    padding: 1em;
-    font-size: 14px;
-    color: #2D2D2D;
 }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# Session setup
+# Persistent session state
 if "step" not in st.session_state:
     st.session_state.step = 0
 if "answers" not in st.session_state:
     st.session_state.answers = {}
 
-# 8A questions
+# 8A Shift Method Prompts
 questions = [
     ("Awareness", "What are you currently feeling or facing?"),
     ("Acknowledgement", "Can you honor what’s real for you right now?"),
@@ -62,18 +52,17 @@ questions = [
     ("Appreciation", "What are you grateful for in this exact moment?")
 ]
 
-# Navigation logic
 step = st.session_state.step
 
-# PAGE 0: Intro
+# Page 0: Welcome screen
 if step == 0:
     st.markdown("## Tap to Shift")
     st.markdown("A gentle reset is one tap away.")
     if st.button("Tap to Begin"):
-        st.session_state.step += 1
+        st.session_state.step = 1
         st.rerun()
 
-# PAGES 1–8: Each 8A Step
+# Pages 1–8: Each prompt
 elif 1 <= step <= 8:
     label, prompt = questions[step - 1]
     st.markdown(f"### {label}")
@@ -84,9 +73,9 @@ elif 1 <= step <= 8:
         st.session_state.step += 1
         st.rerun()
 
-# PAGE 9: Summary + Download
+# Page 9: Completion summary
 elif step == 9:
-    st.markdown("## 🌬️ Let this new frequency guide your next steps.")
+    st.markdown("## Let this new frequency guide your next steps.")
     st.markdown("### Your Reflections:")
     summary = ""
     for label, _ in questions:
@@ -94,7 +83,6 @@ elif step == 9:
         st.markdown(f"**{label}:** {answer}")
         summary += f"{label}: {answer}\n\n"
 
-    # Downloadable text file
     buffer = BytesIO()
     buffer.write(summary.encode())
     buffer.seek(0)
@@ -104,7 +92,7 @@ elif step == 9:
         st.session_state.step += 1
         st.rerun()
 
-# PAGE 10: Affirmation
+# Page 10: Breathe affirmation
 elif step == 10:
     st.markdown("## 🌬️ Now breathe in… and breathe out.")
     st.markdown("You are a force and beyond amazing.")
@@ -114,7 +102,7 @@ elif step == 10:
         st.session_state.step += 1
         st.rerun()
 
-# PAGE 11: Support
+# Page 11: Support
 elif step == 11:
     st.markdown("## Would you like to support this experience?")
     st.markdown(
@@ -123,30 +111,15 @@ elif step == 11:
     )
     st.markdown("[☕ Buy Me a Coffee](https://www.buymeacoffee.com/sheilamaebalaga)")
     st.markdown("🙏 Thank you for your support!")
-
     if st.button("Start Again"):
         st.session_state.step = 0
         st.session_state.answers = {}
         st.rerun()
 
-# Sticky footer message
-footer = """
-<style>
-footer {
-    visibility: hidden;
-}
-footer:after {
-    content: 'Built for your nervous system. With care, always.';
-    visibility: visible;
-    display: block;
-    position: fixed;
-    bottom: 10px;
-    width: 100%;
-    text-align: center;
-    color: #4D3E3E;
-    font-size: 14px;
-    font-family: 'Arial', sans-serif;
-}
-</style>
-"""
-st.markdown(footer, unsafe_allow_html=True)
+# Footer message
+st.markdown(
+    "<div style='text-align: center; margin-top: 40px; font-size: 14px;'>"
+    "Built for your nervous system. With care, always."
+    "</div>",
+    unsafe_allow_html=True
+)
