@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom styling: mushroom background and #B09C8D buttons
+# Custom styling: mushroom background and #D9CEC1 buttons
 custom_css = """
 <style>
 body {
@@ -20,7 +20,7 @@ h1, h2, h3, p, label, textarea {
     color: #3B2F2F !important;
 }
 .stButton > button {
-    background-color: #B09C8D;
+    background-color: #D9CEC1;
     color: white;
     border-radius: 10px;
     padding: 0.5em 2em;
