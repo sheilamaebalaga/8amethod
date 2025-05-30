@@ -75,7 +75,7 @@ elif 1 <= step <= 8:
         st.session_state.answers[label] = response
         st.session_state.step += 1
         st.rerun()
-    st.markdown('<div class="footer">8A Method is built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">8A Method is built for your nervous system pause, shift your energy, and make better choices.</div>', unsafe_allow_html=True)
 
 # Page 9: Summary + Download
 elif step == 9:
@@ -95,7 +95,7 @@ elif step == 9:
     if st.button("Continue"):
         st.session_state.step += 1
         st.rerun()
-    st.markdown('<div class="footer">8A Method is built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">8A Method is built for your nervous system pause, shift your energy, and make better choices.</div>', unsafe_allow_html=True)
 
 # Page 10: Closing
 elif step == 10:
@@ -121,4 +121,4 @@ elif step == 11:
         st.session_state.step = 0
         st.session_state.answers = {}
         st.rerun()
-    st.markdown('<div class="footer">8A Method is built for your nervous system. With care, always.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">8A Method is built for your nervous system pause, shift your energy, and make better choices.</div>', unsafe_allow_html=True)
