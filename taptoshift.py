@@ -128,3 +128,25 @@ elif step == 11:
         st.session_state.step = 0
         st.session_state.answers = {}
         st.rerun()
+
+# Sticky footer message
+footer = """
+<style>
+footer {
+    visibility: hidden;
+}
+footer:after {
+    content: 'Built for your nervous system. With care, always.';
+    visibility: visible;
+    display: block;
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: #4D3E3E;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+}
+</style>
+"""
+st.markdown(footer, unsafe_allow_html=True)
