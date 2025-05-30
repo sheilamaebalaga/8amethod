@@ -56,7 +56,7 @@ step = st.session_state.step
 
 # PAGE 0: Welcome
 if step == 0:
-    st.image("ChatGPT Image May 30, 2025 at 02_34_22 AM.png", use_container_width=True)
+    st.image("48274824-35CA-4229-9E2E-ACA503AC1844.PNG", use_container_width=True)
     st.markdown("<h1 style='margin-bottom: 0.2em;'>Tap to Shift</h1>", unsafe_allow_html=True)
     st.markdown("<p style='font-size: 20px;'>A gentle reset is one tap away.</p>", unsafe_allow_html=True)
     if st.button("Tap to Begin"):
