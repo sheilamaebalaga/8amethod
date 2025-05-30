@@ -50,7 +50,7 @@ step = st.session_state.step
 
 # --- Page 0: Welcome ---
 if step == 0:
-    st.title("🔮 Tap to Shift")
+    st.title(" Tap to Shift")
     st.write("A gentle reset is one tap away.")
     if st.button("Tap to Begin"):
         st.session_state.step += 1
