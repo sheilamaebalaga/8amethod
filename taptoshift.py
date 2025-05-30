@@ -57,10 +57,12 @@ step = st.session_state.step
 # Page 0: Welcome
 if step == 0:
     st.markdown("## Tap to Shift")
+    st.markdown("*8A Method*")  # Add this line under the main heading
     st.markdown("A gentle reset is one tap away.")
     if st.button("Tap to Begin"):
         st.session_state.step = 1
         st.rerun()
+
 
 # Pages 1–8: Questions
 elif 1 <= step <= 8:
