@@ -69,7 +69,7 @@ elif 1 <= step <= 8:
 
 # --- Page 9: Reflections Summary + Download ---
 elif step == 9:
-    st.markdown("## 🌬️ Let this new frequency guide your next steps.")
+    st.markdown("##  Let this new frequency guide your next steps.")
     st.markdown("### Your Reflections:")
 
     summary = ""
