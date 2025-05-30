@@ -1,7 +1,7 @@
 import streamlit as st
 from io import BytesIO
 
-# Set the page config
+# Set up page config
 st.set_page_config(
     page_title="Tap to Shift",
     page_icon="🔮",
@@ -9,32 +9,32 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom Indigo Theme Styling
+# Indigo theme override
 st.markdown("""
     <style>
-        body {
-            background-color: #5A54C4;
-        }
-        h1, h2, h3, p, label, textarea, button {
-            color: white !important;
-        }
-        .stButton > button {
-            background-color: #7F76D9;
-            color: white;
-            border-radius: 8px;
-            padding: 0.6em 2em;
-            font-size: 18px;
-        }
+    html, body, [data-testid="stAppViewContainer"] {
+        background-color: #5A54C4 !important;
+    }
+    h1, h2, h3, h4, h5, h6, p, div, label, textarea, input, button {
+        color: white !important;
+    }
+    .stButton > button {
+        background-color: #7F76D9;
+        color: white;
+        border-radius: 8px;
+        padding: 0.6em 2em;
+        font-size: 18px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# Session Setup
+# Initialize session state
 if "step" not in st.session_state:
     st.session_state.step = 0
 if "answers" not in st.session_state:
     st.session_state.answers = {}
 
-# 8A Reflection Prompts
+# 8A Method Questions
 questions = [
     ("Awareness", "What are you currently feeling or facing?"),
     ("Acknowledgement", "Can you honor what’s real for you right now?"),
@@ -48,62 +48,62 @@ questions = [
 
 step = st.session_state.step
 
-# --- Page 0: Welcome ---
+# PAGE 0 — Intro
 if step == 0:
-    st.title(" Tap to Shift")
-    st.write("A gentle reset is one tap away.")
+    st.markdown("## Tap to Shift")
+    st.markdown("A gentle reset is one tap away.")
     if st.button("Tap to Begin"):
         st.session_state.step += 1
         st.rerun()
 
-# --- Pages 1-8: 8A Questions ---
-elif 1 <= step <= 8:
+# PAGES 1–8 — Each Reflection
+elif 1 <= step <= len(questions):
     label, prompt = questions[step - 1]
-    st.subheader(label)
-    st.write(prompt)
+    st.markdown(f"### {label}")
+    st.markdown(f"**{prompt}**")
     response = st.text_area("Your Reflection", key=f"response_{step}")
     if st.button("Next"):
         st.session_state.answers[label] = response
         st.session_state.step += 1
         st.rerun()
 
-# --- Page 9: Reflections Summary + Download ---
-elif step == 9:
-    st.markdown("##  Let this new frequency guide your next steps.")
+# PAGE 9 — Completion + Download
+elif step == len(questions) + 1:
+    st.markdown("## <span style='font-size: 28px;'>Let this new frequency guide your next steps.</span>", unsafe_allow_html=True)
     st.markdown("### Your Reflections:")
-
     summary = ""
     for label, _ in questions:
         answer = st.session_state.answers.get(label, "")
         st.markdown(f"**{label}:** {answer}")
-        summary += f"{label}:\n{answer}\n\n"
+        summary += f"{label}: {answer}\n\n"
 
-    # Create downloadable .txt file
     buffer = BytesIO()
     buffer.write(summary.encode())
     buffer.seek(0)
-    st.download_button("📄 Download My Shift", buffer, file_name="my_8a_shift.txt", mime="text/plain")
+    st.download_button("Download My Shift", buffer, file_name="my_8a_shift.txt", mime="text/plain")
 
     if st.button("Continue"):
         st.session_state.step += 1
         st.rerun()
 
-# --- Page 10: Breathe + Affirmation ---
-elif step == 10:
+# PAGE 10 — Breathe Out Page
+elif step == len(questions) + 2:
     st.markdown("## 🌬️ Now breathe in… and breathe out.")
-    st.write("You are a force and beyond amazing.")
-    st.write("You’re just getting started.")
-    st.write("Come back anytime.")
+    st.markdown("You are a force and beyond amazing.")
+    st.markdown("You’re just getting started.")
+    st.markdown("Come back anytime.")
     if st.button("Next"):
         st.session_state.step += 1
         st.rerun()
 
-# --- Page 11: Support Page ---
-elif step == 11:
-    st.markdown("## ☕ Would you like to support this experience?")
-    st.write("This app is free and always will be.")
-    st.write("If it brought you peace, clarity, or alignment, you can support its evolution below.")
-    st.markdown("[Buy Me a Coffee](https://www.buymeacoffee.com/sheilamaebalaga)")
+# PAGE 11 — Support Page
+elif step == len(questions) + 3:
+    st.markdown("## Would you like to support this experience?")
+    st.markdown(
+        "This app is free and always will be.\n\n"
+        "If it brought you peace, clarity, or alignment, you can support its evolution below."
+    )
+    st.markdown("[☕ Buy Me a Coffee](https://www.buymeacoffee.com/sheilamaebalaga)")
     st.markdown("🙏 Thank you for your support!")
     if st.button("Start Again"):
         st.session_state.step = 0
